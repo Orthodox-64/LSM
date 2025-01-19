@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import hh from '../assets/hh.jpg';
 
 const LangflowInteraction = () => {
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +44,7 @@ const LangflowInteraction = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `url("/path-to-your-uploaded-image.png")`, // Replace with the image path
+        backgroundImage: `url(${hh})`, // Replace with the image path
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "#fff",

@@ -209,6 +209,7 @@
 import { useState, createContext } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { jsPDF } from "jspdf";
 
 // Create context for data
 export const OurContext = createContext();
@@ -222,6 +223,9 @@ function HoroscopeForm() {
   });
   const [data, setData] = useState(null); // Changed to 'data' to match usage
   const [parsedHoroscope, setParsedHoroscope] = useState({}); // Store parsed horoscope data
+  const [kundaliData, setKundaliData] = useState(null);
+  const [error, setError] = useState("");
+
 
   // Fetch horoscope data from the backend
   const fetchHoroscopeData = async () => {
@@ -273,10 +277,40 @@ function HoroscopeForm() {
       }
     }
   };
+const func=async()=>{
+  setKundaliData(null);
 
+    try {
+      const response = await axios.post("https://gemini-ai-apllication.onrender.com/soulbuddy1", formData);
+      return response.data.kundali
+      // setKundaliData(response.data.kundali);
+    } catch (err) {
+      setError(err.response?.data?.error || "An error occurred");
+    }
+
+}
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchHoroscopeData(); // Call the function to fetch the horoscope data on form submit
+    fetchHoroscopeData();
+    func().then((res)=>setKundaliData(res));
+     // Call the function to fetch the horoscope data on form submit
+  };
+
+  // Function to generate and download the horoscope as a PDF
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Your Horoscope", 10, 10);
+    
+    if (Object.keys(parsedHoroscope).length > 0) {
+      doc.text(`Love: ${parsedHoroscope.Love}`, 10, 20);
+      doc.text(`Career: ${parsedHoroscope.Career}`, 10, 30);
+      doc.text(`Health: ${parsedHoroscope.Health}`, 10, 40);
+      doc.text(`Luck: ${parsedHoroscope.Luck}`, 10, 50);
+    } else {
+      doc.text(data.spiritual_advice || "No horoscope data available", 10, 20);
+    }
+    doc.save("horoscope.pdf");
+    // func().then((res)=>setKundaliData(res));
   };
 
   return (
@@ -379,10 +413,48 @@ function HoroscopeForm() {
               ) : (
                 <p>{data.spiritual_advice || "No message available"}</p>
               )}
+              {/* Button to download as PDF */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={downloadPDF}
+                className="w-full bg-green-600 text-white py-2 rounded-full mt-4 hover:bg-green-700"
+              >
+                Download as PDF
+              </motion.button>
             </motion.div>
           )}
         </motion.div>
       </div>
+      {/* div> */}
+      {/* )} */}
+
+      {kundaliData && (
+        <div style={{ marginTop: "30px" }}>
+          <h2 style={{ textAlign: "center", color: "#007BFF" }}>Kundali Chart</h2>
+          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+            <thead>
+              <tr>
+                <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "left" }}>Planet</th>
+                <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "left" }}>RA (Degrees)</th>
+                <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "left" }}>Dec (Degrees)</th>
+                <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "left" }}>House</th>
+              </tr>
+            </thead>
+            <tbody>
+              {kundaliData.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.Planet}</td>
+                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item["RA (Degrees)"]}</td>
+                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item["Dec (Degrees)"]}</td>
+                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.House}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
     </div>
   );
 }

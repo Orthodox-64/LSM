@@ -6,6 +6,8 @@ const cleanText = (text) => {
   return text.replace(/\*\*(.*?)\*\*/g, '$1');
 };
 
+
+
 const Meditation = () => {
   const [data, setData] = useState("");
 
@@ -49,3 +51,4 @@ const Meditation = () => {
 };
 
 export default Meditation;
+
