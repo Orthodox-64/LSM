@@ -20,6 +20,61 @@ function ZodiacInfo() {
       element: 'Air',
       traits: 'Adaptable, versatile, intellectual'
     },
+   {
+    "name": "Cancer",
+    "date": "June 21 - July 22",
+    "element": "Water",
+    "traits": "Empathetic, intuitive, protective"
+   },
+   {
+    "name": "Leo",
+    "date": "July 23 - August 22",
+    "element": "Fire",
+    "traits": "Charismatic, generous, passionate"
+  },
+  {
+    "name": "Virgo",
+    "date": "August 23 - September 22",
+    "element": "Earth",
+    "traits": "Analytical, practical, detail-oriented"
+  },
+  {
+    "name": "Libra",
+    "date": "September 23 - October 22",
+    "element": "Air",
+    "traits": "Diplomatic, gracious, sociable"
+  },
+  {
+    "name": "Scorpio",
+    "date": "October 23 - November 21",
+    "element": "Water",
+    "traits": "Determined, resourceful, passionate"
+  },
+  {
+    "name": "Sagittarius",
+    "date": "November 22 - December 21",
+    "element": "Fire",
+    "traits": "Adventurous, optimistic, independent"
+  },
+  {
+    "name": "Capricorn",
+    "date": "December 22 - January 19",
+    "element": "Earth",
+    "traits": "Disciplined, responsible, ambitious"
+  },
+  {
+    "name": "Aquarius",
+    "date": "January 20 - February 18",
+    "element": "Air",
+    "traits": "Innovative, humanitarian, intellectual"
+  },
+  {
+    "name": "Pisces",
+    "date": "February 19 - March 20",
+    "element": "Water",
+    "traits": "Compassionate, artistic, intuitive"
+  }
+
     // Add more signs as needed
   ];
 

@@ -21,6 +21,9 @@ function Navbar() {
           <motion.div whileHover={{ scale: 1.1 }}>
             <Link to="/zodiac" className="hover:text-purple-300">Zodiac Signs</Link>
           </motion.div>
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Link to="/meditation" className="hover:text-purple-300">Spiritual</Link>
+          </motion.div>
         </div>
       </div>
     </nav>
